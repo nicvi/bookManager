@@ -30,7 +30,7 @@ jobs:
 
     - name: Push Docker image
       run: |
-        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u nicvi --password-stdin
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
         docker push nicvi/nicvi-repository:latest
 
     - name: Deploy to Kubernetes
