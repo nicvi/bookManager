@@ -53,4 +53,19 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# End of https://www.toptal.com/developers/gitignore/api/terraform
+# Docker
+docker-compose.override.yml
+*.log
+*.bak
+*.tmp
+*.swp
+/var/lib/docker/volumes/
+docker/Dockerfile.dev
+
+# Kubernetes
+k8s/*.log
+k8s/secrets.yaml
+k8s/*.cache
+
+# General
+.env

@@ -1,0 +1,39 @@
+name: CI-CD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+            make install
+    - name: Run tests with pytest
+      run: |
+            make run-test
+
+    - name: Build Docker image
+      run: |
+            docker build . -t nicvi/nicvi-repository:latest
+
+    - name: Push Docker image
+      run: |
+        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u nicvi --password-stdin
+        docker push nicvi/nicvi-repository:latest
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
