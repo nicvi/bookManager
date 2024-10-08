@@ -40,7 +40,7 @@ jobs:
         sudo apt-get install -y conntrack
 
       #Install crictl
-        CRICTL_VERSION="v1.24.0"  # You can check for the latest version
+        CRICTL_VERSION="v1.24.0"
         sudo curl -LO "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz"
         sudo tar -C /usr/local/bin -xzvf "crictl-${CRICTL_VERSION}-linux-amd64.tar.gz"
         sudo chmod +x /usr/local/bin/crictl
