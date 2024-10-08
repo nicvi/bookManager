@@ -14,7 +14,7 @@ run-test:
 	#flake8 ./app --show-source --statistics
 	@echo "Completed flake8!"
 	@echo "==============================================Running test=============================================="
-	pytest
+	pytest -vv
 
 run-app:
 	@echo "====================================Running app================================="
