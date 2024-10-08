@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install run-test
+.PHONY: install run-test run-app
 
 install:
 	@echo "====================================Installing dependencies Performance================================="
@@ -15,3 +15,7 @@ run-test:
 	@echo "Completed flake8!"
 	@echo "==============================================Running test=============================================="
 	pytest
+
+run-app:
+	@echo "====================================Running app================================="
+	uvicorn app.main:app --host 127.0.0.1 --port 7000 --reload
