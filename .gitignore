@@ -66,7 +66,7 @@ docker/Dockerfile.dev
 k8s/*.log
 k8s/secrets.yaml
 k8s/*.cache
-./kubectl
+kubectl
 
 # General
 .env
