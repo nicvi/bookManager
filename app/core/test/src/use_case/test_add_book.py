@@ -32,9 +32,14 @@ def test_add_book_returns_success(
     assert result == mock_added_book
     author_repository.get_author_by_name.assert_called_once_with("John Doe")
     book_repository.get_book_by_title_and_author.assert_called_once_with(
-        title="Sample Book", author=mock_author.id)
+        title="Sample Book", author_id=mock_author.id)
     book_repository.add_book.assert_called_once_with(
-        "Sample Book", "John Doe", 2020, 10)
+        book_title='Sample Book',
+        author_name='John Doe',
+        published_year=2020,
+        total_copies=10,
+        author_id=1
+    )
 
 
 def test_add_book_raise_exception_when_author_not_found(
@@ -77,6 +82,6 @@ def test_add_book_raise_exception_when_book_already_exists(
     assert exception_params.value.author_name == "John Doe"
     author_repository.get_author_by_name.assert_called_once_with("John Doe")
     book_repository.get_book_by_title_and_author.assert_called_once_with(
-        title="Sample Book", author=mock_author.id
+        title="Sample Book", author_id=mock_author.id
     )
     book_repository.add_book.assert_not_called()

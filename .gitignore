@@ -11,6 +11,8 @@ htmlcov/
 env.bat
 None
 /data/
+
+app/data/book_management_db.json
 # Created by https://www.toptal.com/developers/gitignore/api/terraform
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform
 

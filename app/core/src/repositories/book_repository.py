@@ -12,6 +12,7 @@ class BookRepository(ABC):
             author_name: str,
             published_year: int,
             total_copies: int,
+            author_id: int
     ) -> model.Book:
         pass
 
@@ -19,22 +20,6 @@ class BookRepository(ABC):
     def get_book_by_title_and_author(
             self,
             title: str,
-            author: int
+            author_id: int
     ) -> Optional[model.Book]:
-        pass
-
-    @abstractmethod
-    def get_books(self) -> list[model.Book]:
-        pass
-
-    @abstractmethod
-    def get_book_by_id(self, book_id: int) -> model.Book:
-        pass
-
-    @abstractmethod
-    def get_books_by_author(self, author_id: model.Book) -> list[model.Book]:
-        pass
-
-    @abstractmethod
-    def check_book_status(self, book_id: int):
         pass
