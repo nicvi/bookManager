@@ -1,0 +1,72 @@
+name: CI-CD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+            make install
+    - name: Run tests with pytest
+      run: |
+            make run-test
+
+    - name: Build Docker image
+      run: |
+            docker build . -t nicvi/nicvi-repository:latest
+
+    - name: Push Docker image
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        docker push nicvi/nicvi-repository:latest
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y apt-transport-https
+        sudo apt-get install -y conntrack
+
+      #Install crictl
+        CRICTL_VERSION="v1.24.0"  # You can check for the latest version
+        sudo curl -LO "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz"
+        sudo tar -C /usr/local/bin -xzvf "crictl-${CRICTL_VERSION}-linux-amd64.tar.gz"
+        sudo chmod +x /usr/local/bin/crictl
+            
+      # Install minikube
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo install minikube-linux-amd64 /usr/local/bin/minikube
+             
+      # Install kubectl
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        sudo install kubectl /usr/local/bin/
+
+    - name: Start Minikube
+      run: |
+        minikube start --driver=none
+
+    - name: Verify Minikube Status
+      run: |
+        minikube status
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+
+    - name: Verify Deployment
+      run: |
+        kubectl get pods
+        kubectl get services
