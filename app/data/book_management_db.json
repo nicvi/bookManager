@@ -1,0 +1,80 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "name": "George Orwell",
+      "birthdate": "1903-06-25",
+      "nationality": "British"
+    },
+    {
+      "id": 2,
+      "name": "J.K. Rowling",
+      "birthdate": "1965-07-31",
+      "nationality": "British"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "1984",
+      "author_id": 1,
+      "published_year": 1949,
+      "is_borrowed": false,
+      "borrowers": [],
+      "available_copies": 5,
+      "total_copies": 5
+    },
+    {
+      "id": 2,
+      "title": "Animal Farm",
+      "author_id": 1,
+      "published_year": 1945,
+      "is_borrowed": true,
+      "borrowers": [
+        {
+          "user_id": 1,
+          "borrow_date": "2024-10-01"
+        },
+        {
+          "user_id": 2,
+          "borrow_date": "2024-10-05"
+        }
+      ],
+      "available_copies": 3,
+      "total_copies": 5
+    },
+    {
+      "id": 3,
+      "title": "Harry Potter and the Philosopher's Stone",
+      "author_id": 2,
+      "published_year": 1997,
+      "is_borrowed": true,
+      "borrowers": [
+        {
+          "user_id": 1,
+          "borrow_date": "2024-10-01"
+        },
+        {
+          "user_id": 2,
+          "borrow_date": "2024-10-05"
+        }
+      ],
+      "available_copies": 0,
+      "total_copies": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Smith",
+      "email": "alice.smith@example.com",
+      "registered_date": "2024-09-01"
+    },
+    {
+      "id": 2,
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "registered_date": "2024-09-15"
+    }
+  ]
+}
