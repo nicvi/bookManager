@@ -1,0 +1,8 @@
+pydantic~=1.10.17
+fastapi~=0.109.1
+pip~=24.2
+starlette~=0.36.2
+uvicorn~=0.30.6
+pytest~=8.3.3
+httpx~=0.27.2
+pydantic[email]
