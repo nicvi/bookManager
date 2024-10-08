@@ -14,4 +14,4 @@ run-test:
 	flake8 ./app --show-source --statistics
 	@echo "Completed flake8!"
 	@echo "==============================================Running test=============================================="
-	./venv/bin/pytest
+	pytest
